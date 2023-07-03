@@ -1,0 +1,26 @@
+; Read Switches and send to LEDs
+	text
+	org 0x000 ; start here on reset
+	jmp main
+; Data memory layout
+	data
+	value_1: byte 15
+	value_2: byte 20
+        empty: bss 5
+	result: bss 1
+	push : bss 1
+	izq : bss 1 ;0x04
+	der : bss 1 ;0x05
+	
+; Main program
+			text
+			org 0x010
+main:			inp r2, result ; ldm r2, value_1			
+			out r2, result ; Send to output Port (LEDs)
+			inp r4, push 
+			out r4, push
+			inp r5, x
+			out r5, x
+			inp r6, y
+			out r6, y
+ 			jmp main       ; idle loop

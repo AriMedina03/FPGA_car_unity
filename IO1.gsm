@@ -1,0 +1,29 @@
+text
+	jmp main
+	
+; data memory layout
+	data 
+	org 0x000
+	uart_a : bss 1 ; 0x000
+	uart_b : bss 1 ; 0x001
+	
+	
+	text
+	org 0x010
+; acelerometro
+	main: 	add r1, r0, 0
+			inp r5, uart_a ; entra en el 0x000
+		   and r6, r5, 0xF0
+		   bnz izquierda
+		   and r7, r5, 0x0F
+		   bnz derecha
+		   out r1, uart_b
+		   jmp main
+		izquierda: add r1, r1, 1
+				   out r1, uart_b ;OUTPUT 0X000
+			       jmp main
+		derecha: add r1, r1, 2
+				 out r1, uart_b
+			     jmp main
+				 
+				 
